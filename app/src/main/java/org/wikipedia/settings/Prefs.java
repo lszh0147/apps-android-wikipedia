@@ -116,7 +116,7 @@ public final class Prefs {
     }
 
     public static boolean isCrashReportAutoUploadEnabled() {
-        return getBoolean(R.string.preference_key_auto_upload_crash_reports, true);
+        return getBoolean(R.string.preference_key_auto_upload_crash_reports, false);
     }
 
     public static boolean isShowDeveloperSettingsEnabled() {
@@ -221,7 +221,7 @@ public final class Prefs {
     }
 
     public static boolean isEventLoggingEnabled() {
-        return getBoolean(R.string.preference_key_eventlogging_opt_in, true);
+        return getBoolean(R.string.preference_key_eventlogging_opt_in, false);
     }
 
     public static void setEventLoggingEnabled(boolean enabled) {
@@ -486,7 +486,7 @@ public final class Prefs {
     }
 
     public static boolean preferOfflineContent() {
-        return getBoolean(R.string.preference_key_prefer_offline_content, false);
+        return getBoolean(R.string.preference_key_prefer_offline_content, true);
     }
 
     @NonNull public static List<Boolean> getFeedCardsEnabled() {
