@@ -16,38 +16,38 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-permission
-        android:name="android.permission.GET_ACCOUNTS"
-        android:maxSdkVersion="22" />
-    <uses-permission
-        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
-        android:maxSdkVersion="22" />
-    <uses-permission
-        android:name="android.permission.MANAGE_ACCOUNTS"
-        android:maxSdkVersion="22" />
+<!--    <uses-permission-->
+<!--        android:name="android.permission.GET_ACCOUNTS"-->
+<!--        android:maxSdkVersion="22" />-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.AUTHENTICATE_ACCOUNTS"-->
+<!--        android:maxSdkVersion="22" />-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.MANAGE_ACCOUNTS"-->
+<!--        android:maxSdkVersion="22" />-->
 
     <!-- For notifications, e.g. User account notices, etc. -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!-- For being able to receive notifications upon boot -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
 
-    <uses-feature android:name="android.hardware.wifi" tools:node="replace" android:required="false"  />
+<!--    <uses-feature android:name="android.hardware.wifi" tools:node="replace" android:required="false"  />-->
 
     <!-- For keeping the device awake while performing background tasks, such as syncing offline articles. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+<!--    <uses-permission android:name="android.permission.WAKE_LOCK" />-->
 
     <!--
         Don't let Google Play filter out devices that just have fake touch
         (e.g. mouse and keyboard instead of a real touchscreen).
     -->
-    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+<!--    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />-->
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/full_backup_rules"
         android:supportsRtl="true"
-        android:icon="@mipmap/launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:name=".WikipediaApp"
         android:theme="@style/AppTheme">
@@ -290,7 +290,7 @@
         </provider>
 
         <receiver
-            android:icon="@mipmap/launcher"
+            android:icon="@mipmap/icon"
             android:label="@string/widget_name_search"
             android:name="org.wikipedia.widgets.WidgetProviderSearch" >
             <intent-filter >
@@ -303,7 +303,7 @@
         </receiver>
 
         <receiver
-            android:icon="@mipmap/launcher"
+            android:icon="@mipmap/icon"
             android:label="@string/widget_name_featured_page"
             android:name="org.wikipedia.widgets.WidgetProviderFeaturedPage" >
             <intent-filter >
@@ -317,7 +317,6 @@
 
         <receiver android:name=".notifications.NotificationPollBroadcastReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name=".notifications.NotificationPollBroadcastReceiver.ACTION_POLL" />
             </intent-filter>
         </receiver>
@@ -356,14 +355,14 @@
 
         <receiver android:name=".savedpages.SavedPageSyncNotification" />
 
-        <service
-            android:name=".push.WikipediaFirebaseMessagingService"
-            android:exported="false"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+<!--        <service-->
+<!--            android:name=".push.WikipediaFirebaseMessagingService"-->
+<!--            android:exported="false"-->
+<!--            tools:ignore="Instantiatable">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
     </application>
 </manifest>

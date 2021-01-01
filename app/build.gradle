@@ -4,10 +4,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 // Copy the signing.properties.sample file to ~/.sign/signing.properties and adjust the values.
-final File PROD_PROPS_FILE = new File(System.getProperty('user.home'), '.sign/signing.properties')
-final File REPO_PROPS_FILE = new File('repo.properties')
-final Properties PROD_PROPS = loadProperties(PROD_PROPS_FILE)
-final Properties REPO_PROPS = loadProperties(REPO_PROPS_FILE)
+//final File PROD_PROPS_FILE = new File(System.getProperty('user.home'), '.sign/signing.properties')
+//final File REPO_PROPS_FILE = new File('repo.properties')
+//final Properties PROD_PROPS = loadProperties(PROD_PROPS_FILE)
+//final Properties REPO_PROPS = loadProperties(REPO_PROPS_FILE)
 
 
 def static getDate() {
@@ -47,6 +47,9 @@ android {
         signingConfig signingConfigs.debug
 
         buildConfigField "String", "DEFAULT_RESTBASE_URI_FORMAT", '"%1$s://%2$s/api/rest_v1/"'
+        ndk{
+            abiFilters "arm64_v8a"
+        }
     }
 
     sourceSets {
@@ -65,12 +68,20 @@ android {
         }
     }
 
-    signingConfigs {
-        prod {
-            setSigningConfigKey(prod, PROD_PROPS)
-        }
-        debug {
-            setSigningConfigKey(debug, REPO_PROPS)
+//    signingConfigs {
+//        prod {
+//            setSigningConfigKey(prod, PROD_PROPS)
+//        }
+//        debug {
+//            setSigningConfigKey(debug, REPO_PROPS)
+//        }
+//    }
+    signingConfigs{
+        release{
+            storeFile file("TestKey.jks")
+            storePassword "123321"
+            keyAlias "Test"
+            keyPassword "123321"
         }
     }
 
@@ -96,7 +107,7 @@ android {
         }
         prod {
             versionName computeVersionName('r')
-            signingConfig signingConfigs.prod
+            signingConfig signingConfigs.release
         }
         alpha {
             versionName computeVersionName('alpha')
@@ -105,17 +116,17 @@ android {
         beta {
             versionName computeVersionName('beta')
             applicationIdSuffix '.beta'
-            signingConfig signingConfigs.prod
+            signingConfig signingConfigs.release
         }
         fdroid {
             versionName computeVersionName('fdroid')
-            signingConfig signingConfigs.prod
+            signingConfig signingConfigs.release
         }
         custom {
             versionName computeVersionName(customChannel)
             // next line is for injecting a custom channel value into the custom/AndroidManifest.xml
             manifestPlaceholders = [customChannel:getProperty('customChannel').toString()]
-            signingConfig signingConfigs.prod
+            signingConfig signingConfigs.release
         }
     }
 
@@ -203,53 +214,53 @@ dependencies {
     customImplementation "com.google.mlkit:language-id:$mlKitVersion"
 
     // For receiving push notifications for logged-in users.
-    prodImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
-    betaImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
-    alphaImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
-    devImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
-    customImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
+//    prodImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
+//    betaImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
+//    alphaImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
+//    devImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
+//    customImplementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
 
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    implementation "com.squareup.leakcanary:plumber-android:$leakCanaryVersion"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+//    implementation "com.squareup.leakcanary:plumber-android:$leakCanaryVersion"
 
-    testImplementation 'junit:junit:4.13'
-    testImplementation mockitoCore
-    testImplementation 'org.robolectric:robolectric:4.3.1'
-    testImplementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
-    testImplementation "commons-io:commons-io:2.6"
-
-    androidTestImplementation mockitoCore
-    androidTestRuntimeOnly 'com.crittercism.dexmaker:dexmaker:1.4'
-    androidTestImplementation 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
-    androidTestRuntimeOnly 'com.crittercism.dexmaker:dexmaker-dx:1.4'
-
-    androidTestImplementation "androidx.test:rules:1.3.0" // JUnit Rules
-    androidTestImplementation "androidx.test:runner:1.3.0" // Android JUnit Runner
+//    testImplementation 'junit:junit:4.13'
+//    testImplementation mockitoCore
+//    testImplementation 'org.robolectric:robolectric:4.3.1'
+//    testImplementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+//    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+//    testImplementation "commons-io:commons-io:2.6"
+//
+//    androidTestImplementation mockitoCore
+//    androidTestRuntimeOnly 'com.crittercism.dexmaker:dexmaker:1.4'
+//    androidTestImplementation 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
+//    androidTestRuntimeOnly 'com.crittercism.dexmaker:dexmaker-dx:1.4'
+//
+//    androidTestImplementation "androidx.test:rules:1.3.0" // JUnit Rules
+//    androidTestImplementation "androidx.test:runner:1.3.0" // Android JUnit Runner
 }
 
-private setSigningConfigKey(config, Properties props) {
-    if(props != null) {
-        config.storeFile = props['keystore'] == null ? null : file(props['keystore'])
-        config.storePassword = props['store.pass']
-        config.keyAlias = props['key.alias']
-        config.keyPassword = props['key.pass']
-    }
-    return config
-}
+//private setSigningConfigKey(config, Properties props) {
+//    if(props != null) {
+//        config.storeFile = props['keystore'] == null ? null : file(props['keystore'])
+//        config.storePassword = props['store.pass']
+//        config.keyAlias = props['key.alias']
+//        config.keyPassword = props['key.pass']
+//    }
+//    return config
+//}
 
-private static Properties loadProperties(File file) {
-    Properties props = null
-    if (file.canRead()) {
-        props = new Properties()
-        props.load(new FileInputStream(file))
-    } else {
-        System.err.println "\"${file}\" not found"
-    }
-    return props
-}
+//private static Properties loadProperties(File file) {
+//    Properties props = null
+//    if (file.canRead()) {
+//        props = new Properties()
+//        props.load(new FileInputStream(file))
+//    } else {
+//        System.err.println "\"${file}\" not found"
+//    }
+//    return props
+//}
 
 addSyncContentProviderAuthority 'readinglists', 'reading_lists'
 

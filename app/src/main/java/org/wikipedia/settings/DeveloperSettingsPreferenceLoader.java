@@ -10,7 +10,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.TwoStatePreference;
 
-import org.wikipedia.LeakCanaryStubKt;
+//import org.wikipedia.LeakCanaryStubKt;
 import org.wikipedia.R;
 import org.wikipedia.WikipediaApp;
 import org.wikipedia.dataclient.WikiSite;
@@ -223,7 +223,7 @@ class DeveloperSettingsPreferenceLoader extends BasePreferenceLoader {
 
         findPreference(context.getString(R.string.preference_key_memory_leak_test))
                 .setOnPreferenceChangeListener((preference, newValue) -> {
-                    LeakCanaryStubKt.setupLeakCanary();
+//                    LeakCanaryStubKt.setupLeakCanary();
                     return true;
                 });
     }

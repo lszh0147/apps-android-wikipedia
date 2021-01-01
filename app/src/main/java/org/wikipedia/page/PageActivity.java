@@ -446,8 +446,8 @@ public class PageActivity extends BaseActivity implements PageFragment.Callback,
             new LinkPreviewFunnel(app, entry.getSource()).logNavigate();
         }
 
-        app.putCrashReportProperty("api", title.getWikiSite().authority());
-        app.putCrashReportProperty("title", title.toString());
+//        app.putCrashReportProperty("api", title.getWikiSite().authority());
+//        app.putCrashReportProperty("title", title.toString());
 
         if (loadNonArticlePageIfNeeded(title)) {
             return;
